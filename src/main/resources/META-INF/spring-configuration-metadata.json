@@ -1,0 +1,26 @@
+{
+  "groups": [],
+  "properties": [
+    {
+      "name": "valensas.exception.handler.debug.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.valensas.common.exception.autoconfigure.ExceptionHandlerConfigurationProperties.LoggerConfigurationProperties"
+    },
+    {
+      "name": "valensas.exception.handler.debug.packages",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "com.valensas.common.exception.autoconfigure.ExceptionHandlerConfigurationProperties.LoggerConfigurationProperties"
+    },
+    {
+      "name": "valensas.exception.handler.logger.log4xx",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.valensas.common.exception.autoconfigure.HttpErrorLoggerConfigurationProperties.DebugConfigurationProperties"
+    },
+    {
+      "name": "valensas.exception.handler.logger.log5xx",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.valensas.common.exception.autoconfigure.HttpErrorLoggerConfigurationProperties.DebugConfigurationProperties"
+    }
+  ],
+  "hints": []
+}

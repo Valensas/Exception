@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.valensas.common.exception.autoconfigure.ExceptionHandlerAutoConfiguration, \
+    com.valensas.common.exception.autoconfigure.ExceptionHandlerConfigurationProperties
