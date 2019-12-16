@@ -13,6 +13,7 @@ buildscript {
         gitGradleVersion = '2.0.0'
         licenseGradleVersion = '1.5'
         guavaVersion = '27.1-jre'
+        sentryVersion = "1.7.28"
     }
     repositories {
         mavenCentral()
@@ -93,6 +94,9 @@ dependencies {
     // Spring Boot
     compile('org.springframework.boot:spring-boot-starter-web')
     compile("org.springframework.cloud:spring-cloud-starter-openfeign")
+
+    // Sentry
+    compile("io.sentry:sentry-spring:${sentryVersion}")
 
     // Kotlin Support
     compile('org.jetbrains.kotlin:kotlin-stdlib')

@@ -1,6 +1,7 @@
 package com.valensas.common.exception.autoconfigure
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.valensas.common.exception.SentryExceptionResolver
 import com.valensas.common.exception.handler.ApiExceptionErrorHandler
 import com.valensas.common.exception.handler.FeignErrorHandler
 import com.valensas.common.exception.handler.RestTemplateErrorHandler
@@ -55,5 +56,10 @@ class ExceptionHandlerAutoConfiguration {
             log4xx = debugProperties.logger.log4xx,
             log5xx = debugProperties.logger.log5xx
         )
+    }
+
+    @Bean
+    fun sentryExceptionResolver(): SentryExceptionResolver {
+        return SentryExceptionResolver()
     }
 }

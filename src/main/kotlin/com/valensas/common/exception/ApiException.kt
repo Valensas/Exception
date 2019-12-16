@@ -11,22 +11,38 @@ open class ApiException(
     val data: Any? = null,
     val trace: List<String>? = null,
     val `class`: String? = null
-) : RuntimeException(message)
+) : RuntimeException(message) {
+    val statusCode: HttpStatus by lazy {
+        var klass: Class<*>? = javaClass
+
+        while (klass != null) {
+            val annotations = klass.getAnnotationsByType(ResponseStatus::class.java)
+            annotations.firstOrNull()?.value?.let {
+                return@lazy it
+            }
+
+            klass = klass.superclass
+        }
+
+        return@lazy HttpStatus.INTERNAL_SERVER_ERROR
+    }
+
+}
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-class BadRequest(message: String, code: String = "BAD_REQUEST") : ApiException(message, code)
+open class BadRequest(message: String, code: String = "BAD_REQUEST") : ApiException(message, code)
 
 @ResponseStatus(HttpStatus.FORBIDDEN)
-class Forbidden(message: String, code: String = "FORBIDDEN") : ApiException(message, code)
+open class Forbidden(message: String, code: String = "FORBIDDEN") : ApiException(message, code)
 
 @ResponseStatus(HttpStatus.UNAUTHORIZED)
-class Unauthorized(message: String, code: String = "UNAUTHORIZED") : ApiException(message, code)
+open class Unauthorized(message: String, code: String = "UNAUTHORIZED") : ApiException(message, code)
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-class NotFound(message: String, code: String = "NOT_FOUND") : ApiException(message, code)
+open class NotFound(message: String, code: String = "NOT_FOUND") : ApiException(message, code)
 
 @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-class UnprocessableEntity(message: String, code: String = "UNPROCESSABLE_ENTITY") : ApiException(message, code)
+open class UnprocessableEntity(message: String, code: String = "UNPROCESSABLE_ENTITY") : ApiException(message, code)
 
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-class InternalServerError(message: String, code: String = "INTERNAL_SERVER_ERROR") : ApiException(message, code)
+open class InternalServerError(message: String, code: String = "INTERNAL_SERVER_ERROR") : ApiException(message, code)
