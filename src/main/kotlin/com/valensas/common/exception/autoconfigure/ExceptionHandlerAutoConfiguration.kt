@@ -5,7 +5,9 @@ import com.valensas.common.exception.SentryExceptionResolver
 import com.valensas.common.exception.handler.ApiExceptionErrorHandler
 import com.valensas.common.exception.handler.FeignErrorHandler
 import com.valensas.common.exception.handler.RestTemplateErrorHandler
+import io.sentry.spring.SentryServletContextInitializer
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
+import org.springframework.boot.web.servlet.ServletContextInitializer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.EnableAspectJAutoProxy
@@ -61,5 +63,10 @@ class ExceptionHandlerAutoConfiguration {
     @Bean
     fun sentryExceptionResolver(): SentryExceptionResolver {
         return SentryExceptionResolver()
+    }
+
+    @Bean
+    fun sentryServletContextInitializer(): ServletContextInitializer {
+        return SentryServletContextInitializer()
     }
 }
