@@ -10,7 +10,7 @@ import java.lang.Exception
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class SentryExceptionResolver: HandlerExceptionResolver, Ordered {
+class SentryExceptionResolver : HandlerExceptionResolver, Ordered {
     override fun resolveException(
         request: HttpServletRequest,
         response: HttpServletResponse,

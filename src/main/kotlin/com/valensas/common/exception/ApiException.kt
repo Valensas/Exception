@@ -26,7 +26,6 @@ open class ApiException(
 
         return@lazy HttpStatus.INTERNAL_SERVER_ERROR
     }
-
 }
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
