@@ -1,3 +1,7 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    com.valensas.common.exception.autoconfigure.ExceptionHandlerAutoConfiguration, \
+    com.valensas.common.exception.autoconfigure.ApiExceptionHandlerAutoConfiguration, \
+    com.valensas.common.exception.autoconfigure.FeignErrorHandlerAutoConfiguration, \
+    com.valensas.common.exception.autoconfigure.WebClientErrorHandlerAutoConfiguration, \
+    com.valensas.common.exception.autoconfigure.RestTemplateErrorHandlerAutoConfiguration, \
+    com.valensas.common.exception.autoconfigure.SentryAutoConfiguration, \
     com.valensas.common.exception.autoconfigure.ExceptionHandlerConfigurationProperties

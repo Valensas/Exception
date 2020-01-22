@@ -3,10 +3,10 @@ package com.valensas.common.exception.handler
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.valensas.common.exception.ApiException
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.web.bind.annotation.RestControllerAdvice
 
-@ControllerAdvice
+@RestControllerAdvice
 class ApiExceptionErrorHandler(
     mapper: ObjectMapper,
     log4xx: Boolean,

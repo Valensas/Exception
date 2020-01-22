@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity
 
 abstract class HttpErrorHandler(
     protected val mapper: ObjectMapper,
-    private val defaultHeaders: HttpHeaders = HttpHeaders().also { it.contentType = MediaType.APPLICATION_JSON_UTF8 },
+    private val defaultHeaders: HttpHeaders = HttpHeaders().also { it.contentType = MediaType.APPLICATION_JSON },
     private val log4xx: Boolean,
     private val log5xx: Boolean
 ) {

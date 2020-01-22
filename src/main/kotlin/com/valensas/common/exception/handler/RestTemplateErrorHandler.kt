@@ -3,11 +3,11 @@ package com.valensas.common.exception.handler
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.valensas.common.exception.ApiException
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.client.HttpStatusCodeException
 
-@ControllerAdvice
+@RestControllerAdvice
 class RestTemplateErrorHandler(
     mapper: ObjectMapper,
     log4xx: Boolean,

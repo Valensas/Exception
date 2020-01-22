@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.stereotype.Component
 
 @Component
-@ConfigurationProperties("valensas.exception.handler")
+@ConfigurationProperties("valensas.exception")
 class ExceptionHandlerConfigurationProperties {
     @Component
     @ConfigurationProperties("logger")
