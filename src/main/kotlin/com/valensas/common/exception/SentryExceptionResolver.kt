@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import org.springframework.core.Ordered
 import org.springframework.web.client.HttpStatusCodeException
+import org.springframework.web.reactive.function.client.WebClientResponseException
 import org.springframework.web.server.ServerWebExchange
 import org.springframework.web.server.WebExceptionHandler
 import org.springframework.web.servlet.HandlerExceptionResolver
@@ -13,13 +14,30 @@ import org.springframework.web.servlet.ModelAndView
 import reactor.core.publisher.Mono
 
 abstract class SentryExceptionResolver {
+    private val feignInClasspath = classExists("feign.FeignException")
+    private val restTemplateInClasspath = classExists("org.springframework.web.client.HttpStatusCodeException")
+    private val webClientInClasspath = classExists("org.springframework.web.reactive.function.client.WebClientResponseException")
+
     fun shouldReport(ex: Throwable): Boolean {
-        return when (ex) {
-            is ApiException -> ex.statusCode.is5xxServerError
-            is FeignException -> ex.status() == 0 || ex.status() > 499
-            is HttpStatusCodeException -> ex.statusCode.is5xxServerError
-            else -> true
-        }
+        if (ex is ApiException)
+            return ex.statusCode.is5xxServerError
+
+        if (feignInClasspath && ex is FeignException)
+            return ex.status() == 0 || ex.status() > 499
+
+        if (restTemplateInClasspath && ex is HttpStatusCodeException)
+            return ex.statusCode.is5xxServerError
+
+        if (webClientInClasspath && ex is WebClientResponseException)
+            return ex.statusCode.is5xxServerError
+
+        return true
+    }
+
+    private fun classExists(name: String) = try {
+        Class.forName(name, false, javaClass.classLoader) != null
+    } catch (e: ClassNotFoundException) {
+        false
     }
 }
 
