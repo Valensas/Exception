@@ -2,8 +2,6 @@ package com.valensas.common.exception
 
 import feign.FeignException
 import io.sentry.Sentry
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
 import org.springframework.core.Ordered
 import org.springframework.web.client.HttpStatusCodeException
 import org.springframework.web.reactive.function.client.WebClientResponseException
@@ -12,6 +10,8 @@ import org.springframework.web.server.WebExceptionHandler
 import org.springframework.web.servlet.HandlerExceptionResolver
 import org.springframework.web.servlet.ModelAndView
 import reactor.core.publisher.Mono
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 abstract class SentryExceptionResolver {
     private val feignInClasspath = classExists("feign.FeignException")
