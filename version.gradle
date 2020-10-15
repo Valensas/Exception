@@ -1,3 +1,3 @@
 ext.projectName = 'exception'
 ext.projectGroup = 'com.valensas.common'
-ext.projectVersion = '0.0.9-SNAPSHOTS'
+ext.projectVersion = '0.0.9-SNAPSHOT'
