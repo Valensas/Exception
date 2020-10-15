@@ -33,7 +33,7 @@ definitions:
           - gradlewrapper
         script:
           - |-
-            if grep -Fq "-SNAPSHOT" ./version.gradle
+            if grep -Fq "SNAPSHOT" ./version.gradle
             then
               echo "Publish snapshot version"
               bash ./gradlew publish --init-script=./gradle/init-scripts/aws-repo.gradle
