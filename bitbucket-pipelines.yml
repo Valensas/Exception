@@ -26,8 +26,8 @@ definitions:
               echo "ext.projectVersion = ${BITBUCKET_TAG}-SNAPSHOT must be exist in the version.gradle file."
               exit 1
             fi
-    - step: &publish-snapshots
-        name: publish-snapshots
+    - step: &publish-snapshot
+        name: publish-snapshot
         caches:
           - gradle
           - gradlewrapper
@@ -47,7 +47,7 @@ pipelines:
       - step: *build
   branches:
     'master':
-      - step: *publish-snapshots
+      - step: *publish-snapshot
   tags:
     '*.*.*':
       - step: *publish-release
