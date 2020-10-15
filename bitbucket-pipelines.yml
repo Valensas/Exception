@@ -1,0 +1,53 @@
+image: openjdk:8
+
+definitions:
+  caches:
+    gradlewrapper: ~/.gradle/wrapper
+  steps:
+    - step: &build
+        name: build
+        caches:
+          - gradle
+          - gradlewrapper
+        script:
+          - bash ./gradlew build --init-script=./gradle/init-scripts/aws-repo.gradle
+    - step: &publish-release
+        name: publish-release
+        caches:
+          - gradle
+          - gradlewrapper
+        script:
+          - |-
+            if grep -Fq "${BITBUCKET_TAG}-SNAPSHOTS" ./version.gradle
+            then
+              echo "Publish ${BITBUCKET_TAG} version"
+              bash ./gradlew -PprojVersion=$BITBUCKET_TAG publish --init-script=./gradle/init-scripts/aws-repo.gradle
+            else
+              echo "ext.projectVersion = ${BITBUCKET_TAG}-SNAPSHOTS must be exist in the version.gradle file."
+              exit 1
+            fi
+    - step: &publish-snapshots
+        name: publish-snapshots
+        caches:
+          - gradle
+          - gradlewrapper
+        script:
+          - |-
+            if grep -Fq "SNAPSHOTS" ./version.gradle
+            then
+              echo "Publish snapshot version"
+              bash ./gradlew publish --init-script=./gradle/init-scripts/aws-repo.gradle
+            else
+              echo "SNAPSHOTS version is required"
+              exit 1
+            fi
+pipelines:
+  pull-requests:
+    '**':
+      - step: *build
+  branches:
+    'master':
+      - step: *publish-snapshots
+  tags:
+    '*.*.*':
+      - step: *publish-release

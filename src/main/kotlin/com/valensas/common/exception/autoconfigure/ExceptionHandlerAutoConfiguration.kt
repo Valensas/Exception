@@ -1,19 +1,13 @@
 package com.valensas.common.exception.autoconfigure
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.valensas.common.exception.ReactiveSentryExceptionResolver
-import com.valensas.common.exception.SentryExceptionResolver
-import com.valensas.common.exception.ServletSentryExceptionResolver
 import com.valensas.common.exception.handler.ApiExceptionErrorHandler
 import com.valensas.common.exception.handler.FeignErrorHandler
 import com.valensas.common.exception.handler.RestTemplateErrorHandler
 import com.valensas.common.exception.handler.WebClientErrorHandler
 import feign.Feign
-import io.sentry.spring.SentryServletContextInitializer
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication
-import org.springframework.boot.web.servlet.ServletContextInitializer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.client.RestTemplate
@@ -91,26 +85,5 @@ class RestTemplateErrorHandlerAutoConfiguration {
             log4xx = debugProperties.logger.log4xx,
             log5xx = debugProperties.logger.log5xx
         )
-    }
-}
-
-@Configuration
-class SentryAutoConfiguration {
-    @Bean
-    @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
-    fun servletSentryExceptionResolver(): SentryExceptionResolver {
-        return ServletSentryExceptionResolver()
-    }
-
-    @Bean
-    @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
-    fun reactiveSentryExceptionResolver(): SentryExceptionResolver {
-        return ReactiveSentryExceptionResolver()
-    }
-
-    @Bean
-    @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
-    fun sentryServletContextInitializer(): ServletContextInitializer {
-        return SentryServletContextInitializer()
     }
 }
