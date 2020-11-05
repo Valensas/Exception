@@ -46,6 +46,9 @@ abstract class HttpErrorHandler(
 
             trace.add(currentTrace)
             body.putIfAbsent("trace", trace)
+        }else{
+            body.remove("trace")
+            body.remove("path")
         }
         return body
     }

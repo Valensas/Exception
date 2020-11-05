@@ -21,7 +21,7 @@ definitions:
             if grep -Fq "${BITBUCKET_TAG}-SNAPSHOT" ./version.gradle
             then
               echo "Publish ${BITBUCKET_TAG} version"
-              bash ./gradlew -PprojVersion=$BITBUCKET_TAG publish --init-script=./gradle/init-scripts/aws-repo.gradle
+              bash ./gradlew -PprojectVersion=${BITBUCKET_TAG} -Dorg.gradle.project.version=${BITBUCKET_TAG} publish --init-script=./gradle/init-scripts/aws-repo.gradle
             else
               echo "ext.projectVersion = ${BITBUCKET_TAG}-SNAPSHOT must be exist in the version.gradle file."
               exit 1
@@ -36,9 +36,9 @@ definitions:
             if grep -Fq "SNAPSHOT" ./version.gradle
             then
               echo "Publish snapshot version"
-              bash ./gradlew publish --init-script=./gradle/init-scripts/aws-repo.gradle
+              bash ./gradlew publish --init-script=./gradle/init-scripts/aws-repo.gradle --init-script=./gradle/init-scripts/model-share.gradle
             else
-              echo "SNAPSHOTS version is required"
+              echo "SNAPSHOT version is required"
               exit 1
             fi
 pipelines:

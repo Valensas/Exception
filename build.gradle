@@ -10,7 +10,9 @@ apply from: './version.gradle'
 
 
 group = projectGroup
-version = projectVersion
+if( version == "unspecified" ){
+    version = projectVersion
+}
 
 sourceCompatibility = 1.8
 
@@ -103,8 +105,8 @@ publishing {
     publications {
         maven(MavenPublication) {
             groupId = projectGroup
-            artifactId = projectName
-            version = projectVersion
+            artifactId = project.name
+            version = project.version
 
             from components.java
         }
