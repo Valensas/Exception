@@ -9,7 +9,6 @@ open class ApiException(
     message: String,
     val code: String,
     val data: HashMap<*, *>? = null,
-    val trace: List<String>? = null,
     val `class`: String? = null
 ) : RuntimeException(message) {
     val statusCode: HttpStatus by lazy {
