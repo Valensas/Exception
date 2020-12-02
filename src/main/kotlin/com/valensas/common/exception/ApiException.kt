@@ -43,6 +43,10 @@ open class Unauthorized(message: String, code: String = "UNAUTHORIZED", data: Ha
 open class NotFound(message: String, code: String = "NOT_FOUND", data: HashMap<*, *>? = null) :
     ApiException(message, code, data)
 
+@ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+open class NotAcceptable(message: String, code: String = "NOT_ACCEPTABLE", data: HashMap<*, *>? = null) :
+    ApiException(message, code, data)
+
 @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
 open class UnprocessableEntity(message: String, code: String = "UNPROCESSABLE_ENTITY", data: HashMap<*, *>? = null) :
     ApiException(message, code, data)
