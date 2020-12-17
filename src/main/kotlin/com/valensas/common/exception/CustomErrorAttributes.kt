@@ -41,8 +41,8 @@ class CustomErrorAttributes(private val objectMapper: ObjectMapper) : DefaultErr
                 } catch (ex: Exception) {
                     null
                 }
-                errorAttributes["message"] = jsonMessage?.get("message")?.toPrettyString() ?: error.message
-                errorAttributes["service"] = jsonMessage?.get("service")?.toPrettyString() ?: serviceName
+                errorAttributes["message"] = jsonMessage?.get("message")?.textValue() ?: error.message
+                errorAttributes["service"] = jsonMessage?.get("service")?.textValue() ?: serviceName
                 errorAttributes["description"] = "WebClient Response Exception"
             }
             else -> errorAttributes["service"] = serviceName
