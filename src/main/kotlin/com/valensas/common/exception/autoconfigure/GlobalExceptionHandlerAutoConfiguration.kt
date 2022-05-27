@@ -2,7 +2,7 @@ package com.valensas.common.exception.autoconfigure
 
 import com.valensas.common.exception.GlobalExceptionHandler
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
-import org.springframework.boot.autoconfigure.web.ResourceProperties
+import org.springframework.boot.autoconfigure.web.WebProperties.Resources
 import org.springframework.boot.web.reactive.error.ErrorAttributes
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
@@ -17,10 +17,16 @@ class GlobalExceptionHandlerAutoConfiguration {
     @ConditionalOnMissingBean
     fun globalExceptionHandler(
         errorAttributes: ErrorAttributes?,
-        resourceProperties: ResourceProperties?,
+        resources: Resources?,
         applicationContext: ApplicationContext?,
-        serverCodecConfigurer: ServerCodecConfigurer
+        serverCodeConfigurer: ServerCodecConfigurer
     ): GlobalExceptionHandler {
-        return GlobalExceptionHandler(errorAttributes, resourceProperties, applicationContext, serverCodecConfigurer)
+        return GlobalExceptionHandler(errorAttributes, resources, applicationContext, serverCodeConfigurer)
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    fun webPropertiesResources(): Resources {
+        return Resources()
     }
 }

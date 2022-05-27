@@ -31,7 +31,6 @@ compileTestKotlin {
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 configurations {

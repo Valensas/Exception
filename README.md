@@ -2,22 +2,36 @@
 # Exchange Security Library
 It is the library that contains common exception configurations.
 
-### Change log
+## Change log
 
-#####  0.0.8-RELEASE
+###  0.0.15
 To use or upgrade service to this version, Spring Boot and Spring Cloud versions should meet with following contitions.
 
-| Dependency | Condition | Version |
-| ------ | ------ |------ |
-| Spring Boot Version | >= | 2.3.0.RELEASE |
-| Spring Cloud Version | >= | Hoxton.SR4 |
-| Reactor Version | >= | Dysprosium-SR7 |
+| Dependency           | Condition | Version  |
+|----------------------|-----------|----------|
+| Spring Boot Version  | >=        | 2.6.0    |
+| Spring Cloud Version | >=        | 2021.0.0 |
+| Reactor Version      | >=        | 1.1.2    |
 
-#####  0.0.9-SNAPSHOTS
+---
+
+###  0.0.9-SNAPSHOTS
 To use or upgrade service to this version, Spring Boot and Spring Cloud versions should meet with following contitions.
 
-| Dependency | Condition | Version |
-| ------ | ------ |------ |
-| Spring Boot Version | >= | 2.3.4.RELEASE |
-| Spring Cloud Version | >= | Hoxton.SR8 |
-| Reactor Version | >= | Dysprosium-SR7 |
+| Dependency           | Condition | Version        |
+|----------------------|-----------|----------------|
+| Spring Boot Version  | >=        | 2.3.4.RELEASE  |
+| Spring Cloud Version | >=        | Hoxton.SR8     |
+| Reactor Version      | >=        | Dysprosium-SR7 |
+
+---
+
+###  0.0.8-RELEASE
+To use or upgrade service to this version, Spring Boot and Spring Cloud versions should meet with following contitions.
+
+| Dependency           | Condition | Version        |
+|----------------------|-----------|----------------|
+| Spring Boot Version  | >=        | 2.3.0.RELEASE  |
+| Spring Cloud Version | >=        | Hoxton.SR4     |
+| Reactor Version      | >=        | Dysprosium-SR7 |
+
