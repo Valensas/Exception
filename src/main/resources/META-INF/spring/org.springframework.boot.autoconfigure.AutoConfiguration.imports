@@ -1,0 +1,5 @@
+com.valensas.exception.autoconfigure.ApiExceptionHandlerAutoConfiguration
+com.valensas.exception.autoconfigure.FeignErrorHandlerAutoConfiguration
+com.valensas.exception.autoconfigure.WebClientErrorHandlerAutoConfiguration
+com.valensas.exception.autoconfigure.RestTemplateErrorHandlerAutoConfiguration
+com.valensas.exception.autoconfigure.ExceptionHandlerConfigurationProperties

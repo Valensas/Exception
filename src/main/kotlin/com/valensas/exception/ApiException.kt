@@ -1,4 +1,4 @@
-package com.valensas.common.exception
+package com.valensas.exception
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import org.springframework.http.HttpStatus
@@ -9,6 +9,7 @@ open class ApiException(
     message: String,
     val code: String,
     val data: HashMap<*, *>? = null,
+    val trace: List<String>? = null,
     val `class`: String? = null
 ) : RuntimeException(message) {
     val statusCode: HttpStatus by lazy {
@@ -41,10 +42,6 @@ open class Unauthorized(message: String, code: String = "UNAUTHORIZED", data: Ha
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
 open class NotFound(message: String, code: String = "NOT_FOUND", data: HashMap<*, *>? = null) :
-    ApiException(message, code, data)
-
-@ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
-open class NotAcceptable(message: String, code: String = "NOT_ACCEPTABLE", data: HashMap<*, *>? = null) :
     ApiException(message, code, data)
 
 @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)

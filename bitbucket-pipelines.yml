@@ -36,7 +36,7 @@ definitions:
             if grep -Fq "SNAPSHOT" ./version.gradle
             then
               echo "Publish snapshot version"
-              bash ./gradlew publish --init-script=./gradle/init-scripts/aws-repo.gradle
+              bash ./gradlew publish --init-script=./gradle/init-scripts/aws-repo.gradle --init-script=./gradle/init-scripts/model-share.gradle
             else
               echo "SNAPSHOT version is required"
               exit 1
