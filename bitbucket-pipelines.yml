@@ -1,53 +1,29 @@
-image: openjdk:8
+image: openjdk:17
 
 definitions:
   caches:
     gradlewrapper: ~/.gradle/wrapper
   steps:
-    - step: &build
-        name: build
+    - step: &lint
+        name: Lint
         caches:
           - gradle
           - gradlewrapper
         script:
-          - bash ./gradlew build --init-script=./gradle/init-scripts/aws-repo.gradle
-    - step: &publish-release
-        name: publish-release
+          - bash ./gradlew lintKotlin
+    - step: &publish
+        name: Publish
         caches:
           - gradle
           - gradlewrapper
         script:
-          - |-
-            if grep -Fq "${BITBUCKET_TAG}-SNAPSHOT" ./version.gradle
-            then
-              echo "Publish ${BITBUCKET_TAG} version"
-              bash ./gradlew -PprojectVersion=${BITBUCKET_TAG} -Dorg.gradle.project.version=${BITBUCKET_TAG} publish --init-script=./gradle/init-scripts/aws-repo.gradle
-            else
-              echo "ext.projectVersion = ${BITBUCKET_TAG}-SNAPSHOT must be exist in the version.gradle file."
-              exit 1
-            fi
-    - step: &publish-snapshot
-        name: publish-snapshot
-        caches:
-          - gradle
-          - gradlewrapper
-        script:
-          - |-
-            if grep -Fq "SNAPSHOT" ./version.gradle
-            then
-              echo "Publish snapshot version"
-              bash ./gradlew publish --init-script=./gradle/init-scripts/aws-repo.gradle --init-script=./gradle/init-scripts/model-share.gradle
-            else
-              echo "SNAPSHOT version is required"
-              exit 1
-            fi
+          - bash ./gradlew publish
+
 pipelines:
   pull-requests:
-    '**':
-      - step: *build
+    "**":
+      - step: *lint
   branches:
-    'master':
-      - step: *publish-snapshot
-  tags:
-    '*.*.*':
-      - step: *publish-release
+    master:
+      - step: *lint
+      - step: *publish
