@@ -1,11 +1,13 @@
 package com.valensas.exception.autoconfigure
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.valensas.exception.ApiException
 import com.valensas.exception.handler.ApiExceptionErrorHandler
 import com.valensas.exception.handler.FeignErrorHandler
 import com.valensas.exception.handler.RestTemplateErrorHandler
 import com.valensas.exception.handler.WebClientErrorHandler
 import feign.Feign
+import org.springframework.aot.hint.annotation.RegisterReflectionForBinding
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean
@@ -14,6 +16,9 @@ import org.springframework.web.client.RestTemplate
 import org.springframework.web.reactive.function.client.WebClient
 
 @Configuration
+@RegisterReflectionForBinding(
+    ApiException::class
+)
 class ApiExceptionHandlerAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
