@@ -16,7 +16,10 @@ abstract class HttpErrorHandler(
 ) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
-    fun responseWith(body: Any?, statusCode: HttpStatus): ResponseEntity<Any> {
+    fun responseWith(
+        body: Any?,
+        statusCode: HttpStatus
+    ): ResponseEntity<Any> {
         return ResponseEntity(body, defaultHeaders, statusCode).also {
             when {
                 it.statusCode.value() in 400..500 && log4xx -> logger.error("Returning {}, body: {}", it.statusCode.value(), it.body)
@@ -28,18 +31,25 @@ abstract class HttpErrorHandler(
     private fun <K, V> Map<K, V?>.filterNotNullValues(): Map<K, V> =
         mutableMapOf<K, V>().apply { for ((k, v) in this@filterNotNullValues) if (v != null) put(k, v) }
 
-    protected fun convert(exception: ApiException, cause: Throwable?, debug: Boolean, debugPackages: List<String>): Any {
-        val body: MutableMap<String, Any?> = mapOf(
-            "code" to exception.code,
-            "message" to exception.message,
-            "data" to exception.data
-        ).filterNotNullValues().toMutableMap()
+    protected fun convert(
+        exception: ApiException,
+        cause: Throwable?,
+        debug: Boolean,
+        debugPackages: List<String>
+    ): Any {
+        val body: MutableMap<String, Any?> =
+            mapOf(
+                "code" to exception.code,
+                "message" to exception.message,
+                "data" to exception.data
+            ).filterNotNullValues().toMutableMap()
         if (debug) {
             body.putIfAbsent("class", exception.`class` ?: exception.javaClass.canonicalName)
             val trace = exception.trace?.toMutableList() ?: mutableListOf()
-            val lineMatchingPackages = (cause ?: exception)
-                .stackTrace
-                .firstOrNull { traceLine -> debugPackages.any { traceLine.className.startsWith(it) } }
+            val lineMatchingPackages =
+                (cause ?: exception)
+                    .stackTrace
+                    .firstOrNull { traceLine -> debugPackages.any { traceLine.className.startsWith(it) } }
 
             val firstLine = exception.stackTrace.firstOrNull()
             val currentTrace = lineMatchingPackages?.toString() ?: firstLine?.toString() ?: "unknown"

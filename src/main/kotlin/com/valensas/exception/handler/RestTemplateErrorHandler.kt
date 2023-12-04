@@ -16,10 +16,10 @@ class RestTemplateErrorHandler(
     private val debug: Boolean,
     private val debugPackages: List<String>
 ) : HttpErrorHandler(
-    mapper,
-    log4xx = log4xx,
-    log5xx = log5xx
-) {
+        mapper,
+        log4xx = log4xx,
+        log5xx = log5xx
+    ) {
     @ExceptionHandler(HttpStatusCodeException::class)
     fun handleHttpStatusCodeException(exception: HttpStatusCodeException): ResponseEntity<Any> {
         val statusCode = exception.statusCode.value().let(HttpStatus::valueOf)

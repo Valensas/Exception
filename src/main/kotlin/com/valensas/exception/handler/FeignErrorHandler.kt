@@ -16,10 +16,10 @@ class FeignErrorHandler(
     private val debug: Boolean,
     private val debugPackages: List<String>
 ) : HttpErrorHandler(
-    mapper,
-    log4xx = log4xx,
-    log5xx = log5xx
-) {
+        mapper,
+        log4xx = log4xx,
+        log5xx = log5xx
+    ) {
     @ExceptionHandler(FeignException::class)
     fun handleFeignException(exception: FeignException): ResponseEntity<Any> {
         val statusCode = HttpStatus.resolve(exception.status()) ?: HttpStatus.INTERNAL_SERVER_ERROR
