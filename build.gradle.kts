@@ -11,12 +11,11 @@ plugins {
 }
 
 group = "com.valensas"
-version = "2.0.1"
+version = "2.0.2"
 java.sourceCompatibility = JavaVersion.VERSION_21
 
 repositories {
     mavenCentral()
-    maven { url = uri("https://repo.spring.io/milestone") }
 }
 
 dependencies {
@@ -46,7 +45,7 @@ tasks.withType<Test> {
 
 dependencyManagement {
     imports {
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2023.0.0-M2")
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2023.0.0")
     }
 }
 
