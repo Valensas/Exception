@@ -3,6 +3,9 @@ package com.valensas.exception.handler
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.valensas.exception.ApiException
 import feign.FeignException
+import feign.FeignException.FeignClientException
+import feign.FeignException.FeignServerException
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -20,18 +23,23 @@ class FeignErrorHandler(
         log4xx = log4xx,
         log5xx = log5xx
     ) {
+    private val logger = LoggerFactory.getLogger(javaClass)
+
     @ExceptionHandler(FeignException::class)
     fun handleFeignException(exception: FeignException): ResponseEntity<Any> {
-        val statusCode = HttpStatus.resolve(exception.status()) ?: HttpStatus.INTERNAL_SERVER_ERROR
         return try {
             val apiException = mapper.readValue(exception.contentUTF8(), ApiException::class.java)
             val body = convert(apiException, exception, debug, debugPackages)
-
-            responseWith(body, statusCode)
-        } catch (e: Throwable) {
-            // Try to return exception as ResponseEntity with keeping data
+            responseWith(body, apiException.statusCode)
+        } catch (e: FeignClientException) {
             val body = exception.contentUTF8() ?: mapOf("message" to (exception.message ?: exception.localizedMessage))
-            responseWith(body, statusCode)
+            responseWith(body, HttpStatus.resolve(exception.status()) ?: HttpStatus.BAD_REQUEST)
+        } catch (e: FeignServerException) {
+            val body = exception.contentUTF8() ?: mapOf("message" to (exception.message ?: exception.localizedMessage))
+            responseWith(body, HttpStatus.resolve(exception.status()) ?: HttpStatus.INTERNAL_SERVER_ERROR)
+        } catch (e: Throwable) {
+            logger.warn("Unhandled FeignException occurred. Response body: {}.", exception.contentUTF8(), e)
+            responseWith(mapOf("message" to "An error occured."), HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
 }
