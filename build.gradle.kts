@@ -24,6 +24,7 @@ dependencies {
     compileOnly("org.springframework.cloud:spring-cloud-starter-openfeign")
     compileOnly("org.springframework.boot:spring-boot-starter-web")
     compileOnly("org.springframework:spring-webflux")
+    compileOnly("org.springframework.boot:spring-boot-starter-validation")
 
     implementation("jakarta.annotation:jakarta.annotation-api:2.1.1")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

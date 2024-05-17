@@ -2,6 +2,7 @@ package com.valensas.exception.handler
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.valensas.exception.ApiException
+import com.valensas.exception.ParameterException
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
@@ -62,4 +63,14 @@ abstract class HttpErrorHandler(
         }
         return body
     }
+
+    protected fun convert(exception: ParameterException) =
+        mapOf(
+            "id" to exception.id,
+            "path" to exception.path,
+            "message" to exception.message,
+            "parameter" to exception.parameter,
+            "code" to exception.code,
+            "fieldErrors" to exception.fieldErrors
+        ).filterNotNullValues().toMutableMap()
 }

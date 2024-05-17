@@ -2,10 +2,13 @@ package com.valensas.exception.autoconfigure
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.valensas.exception.ApiException
+import com.valensas.exception.ParameterException
 import com.valensas.exception.handler.ApiExceptionErrorHandler
 import com.valensas.exception.handler.FeignErrorHandler
 import com.valensas.exception.handler.RestTemplateErrorHandler
 import com.valensas.exception.handler.WebClientErrorHandler
+import com.valensas.exception.handler.WebFluxParameterExceptionErrorHandler
+import com.valensas.exception.handler.WebParameterExceptionErrorHandler
 import feign.Feign
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
@@ -32,6 +35,44 @@ class ApiExceptionHandlerAutoConfiguration {
             debugPackages = debugProperties.debug.packages,
             log4xx = debugProperties.logger.log4xx,
             log5xx = debugProperties.logger.log5xx
+        )
+    }
+}
+
+@Configuration
+@RegisterReflectionForBinding(
+    ParameterException::class
+)
+class WebFluxParameterExceptionHandlerAutoConfiguration {
+    @Bean
+    @ConditionalOnMissingBean
+    fun webFluxParameterExceptionErrorHandler(
+        mapper: ObjectMapper,
+        debugProperties: ExceptionHandlerConfigurationProperties
+    ): WebFluxParameterExceptionErrorHandler {
+        return WebFluxParameterExceptionErrorHandler(
+            mapper = mapper,
+            log4xx = debugProperties.logger.log4xx,
+            log5xx = debugProperties.logger.log5xx
+        )
+    }
+}
+
+@Configuration
+@RegisterReflectionForBinding(
+    ParameterException::class
+)
+class WebParameterExceptionErrorHandlerConfiguration {
+    @Bean
+    @ConditionalOnMissingBean
+    fun webParameterExceptionErrorHandler(
+        mapper: ObjectMapper,
+        debugProperties: ExceptionHandlerConfigurationProperties
+    ): WebParameterExceptionErrorHandler {
+        return WebParameterExceptionErrorHandler(
+            mapper,
+            debugProperties.logger.log4xx,
+            debugProperties.logger.log5xx
         )
     }
 }
