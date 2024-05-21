@@ -2,24 +2,24 @@
   "groups": [],
   "properties": [
     {
-      "name": "valensas.exception.handler.debug.enabled",
+      "name": "valensas.exception.debug.enabled",
       "type": "java.lang.Boolean",
-      "sourceType": "com.valensas.exception.autoconfigure.ExceptionHandlerConfigurationProperties.LoggerConfigurationProperties"
+      "sourceType": "com.valensas.exception.autoconfigure.ExceptionHandlerConfigurationProperties.DebugConfigurationProperties"
     },
     {
-      "name": "valensas.exception.handler.debug.packages",
+      "name": "valensas.exception.debug.packages",
       "type": "java.util.List<java.lang.String>",
+      "sourceType": "com.valensas.exception.autoconfigure.ExceptionHandlerConfigurationProperties.DebugConfigurationProperties"
+    },
+    {
+      "name": "valensas.exception.logger.log4xx",
+      "type": "java.lang.Boolean",
       "sourceType": "com.valensas.exception.autoconfigure.ExceptionHandlerConfigurationProperties.LoggerConfigurationProperties"
     },
     {
-      "name": "valensas.exception.handler.logger.log4xx",
+      "name": "valensas.exception.logger.log5xx",
       "type": "java.lang.Boolean",
-      "sourceType": "com.valensas.common.exception.autoconfigure.HttpErrorLoggerConfigurationProperties.DebugConfigurationProperties"
-    },
-    {
-      "name": "valensas.exception.handler.logger.log5xx",
-      "type": "java.lang.Boolean",
-      "sourceType": "com.valensas.common.exception.autoconfigure.HttpErrorLoggerConfigurationProperties.DebugConfigurationProperties"
+      "sourceType": "com.valensas.exception.autoconfigure.ExceptionHandlerConfigurationProperties.LoggerConfigurationProperties"
     }
   ],
   "hints": []

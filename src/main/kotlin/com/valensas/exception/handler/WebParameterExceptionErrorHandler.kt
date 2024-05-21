@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.valensas.exception.FieldError
 import com.valensas.exception.ParameterErrorCode
 import com.valensas.exception.ParameterException
+import com.valensas.exception.autoconfigure.ExceptionHandlerConfigurationProperties
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -18,12 +19,11 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 @RestControllerAdvice
 class WebParameterExceptionErrorHandler(
     mapper: ObjectMapper,
-    log4xx: Boolean,
-    log5xx: Boolean
+    debugProperties: ExceptionHandlerConfigurationProperties
 ) : HttpErrorHandler(
         mapper,
-        log4xx = log4xx,
-        log5xx = log5xx
+        log4xx = debugProperties.logger.log4xx,
+        log5xx = debugProperties.logger.log5xx
     ) {
     @ExceptionHandler(MissingServletRequestParameterException::class)
     fun handleMissingServletRequestParameterException(

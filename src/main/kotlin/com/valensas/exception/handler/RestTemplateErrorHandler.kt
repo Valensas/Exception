@@ -2,6 +2,7 @@ package com.valensas.exception.handler
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.valensas.exception.ApiException
+import com.valensas.exception.autoconfigure.ExceptionHandlerConfigurationProperties
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -11,21 +12,18 @@ import org.springframework.web.client.HttpStatusCodeException
 @RestControllerAdvice
 class RestTemplateErrorHandler(
     mapper: ObjectMapper,
-    log4xx: Boolean,
-    log5xx: Boolean,
-    private val debug: Boolean,
-    private val debugPackages: List<String>
+    private val debugProperties: ExceptionHandlerConfigurationProperties
 ) : HttpErrorHandler(
         mapper,
-        log4xx = log4xx,
-        log5xx = log5xx
+        log4xx = debugProperties.logger.log4xx,
+        log5xx = debugProperties.logger.log5xx
     ) {
     @ExceptionHandler(HttpStatusCodeException::class)
     fun handleHttpStatusCodeException(exception: HttpStatusCodeException): ResponseEntity<Any> {
         val statusCode = exception.statusCode.value().let(HttpStatus::valueOf)
         return try {
             val apiException = mapper.readValue(exception.responseBodyAsString, ApiException::class.java)
-            val body = convert(apiException, exception, debug, debugPackages)
+            val body = convert(apiException, exception, debugProperties.debug.enabled, debugProperties.debug.packages)
 
             responseWith(body, statusCode)
         } catch (e: Throwable) {

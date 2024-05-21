@@ -31,10 +31,7 @@ class ApiExceptionHandlerAutoConfiguration {
     ): ApiExceptionErrorHandler {
         return ApiExceptionErrorHandler(
             mapper = mapper,
-            debug = debugProperties.debug.enabled,
-            debugPackages = debugProperties.debug.packages,
-            log4xx = debugProperties.logger.log4xx,
-            log5xx = debugProperties.logger.log5xx
+            debugProperties = debugProperties
         )
     }
 }
@@ -52,8 +49,7 @@ class WebFluxParameterExceptionHandlerAutoConfiguration {
     ): WebFluxParameterExceptionErrorHandler {
         return WebFluxParameterExceptionErrorHandler(
             mapper = mapper,
-            log4xx = debugProperties.logger.log4xx,
-            log5xx = debugProperties.logger.log5xx
+            debugProperties = debugProperties
         )
     }
 }
@@ -71,8 +67,7 @@ class WebParameterExceptionErrorHandlerConfiguration {
     ): WebParameterExceptionErrorHandler {
         return WebParameterExceptionErrorHandler(
             mapper,
-            debugProperties.logger.log4xx,
-            debugProperties.logger.log5xx
+            debugProperties
         )
     }
 }
@@ -88,10 +83,7 @@ class FeignErrorHandlerAutoConfiguration {
     ): FeignErrorHandler {
         return FeignErrorHandler(
             mapper = mapper,
-            debug = debugProperties.debug.enabled,
-            debugPackages = debugProperties.debug.packages,
-            log4xx = debugProperties.logger.log4xx,
-            log5xx = debugProperties.logger.log5xx
+            debugProperties = debugProperties
         )
     }
 }
@@ -107,10 +99,7 @@ class WebClientErrorHandlerAutoConfiguration {
     ): WebClientErrorHandler {
         return WebClientErrorHandler(
             mapper = mapper,
-            debug = debugProperties.debug.enabled,
-            debugPackages = debugProperties.debug.packages,
-            log4xx = debugProperties.logger.log4xx,
-            log5xx = debugProperties.logger.log5xx
+            debugProperties = debugProperties
         )
     }
 }
@@ -126,10 +115,7 @@ class RestTemplateErrorHandlerAutoConfiguration {
     ): RestTemplateErrorHandler {
         return RestTemplateErrorHandler(
             mapper = mapper,
-            debug = debugProperties.debug.enabled,
-            debugPackages = debugProperties.debug.packages,
-            log4xx = debugProperties.logger.log4xx,
-            log5xx = debugProperties.logger.log5xx
+            debugProperties = debugProperties
         )
     }
 }

@@ -2,6 +2,7 @@ package com.valensas.exception.handler
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.valensas.exception.ApiException
+import com.valensas.exception.autoconfigure.ExceptionHandlerConfigurationProperties
 import feign.FeignException
 import feign.FeignException.FeignClientException
 import feign.FeignException.FeignServerException
@@ -14,14 +15,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 @RestControllerAdvice
 class FeignErrorHandler(
     mapper: ObjectMapper,
-    log4xx: Boolean,
-    log5xx: Boolean,
-    private val debug: Boolean,
-    private val debugPackages: List<String>
+    private val debugProperties: ExceptionHandlerConfigurationProperties
 ) : HttpErrorHandler(
         mapper,
-        log4xx = log4xx,
-        log5xx = log5xx
+        log4xx = debugProperties.logger.log4xx,
+        log5xx = debugProperties.logger.log5xx
     ) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
@@ -29,7 +27,7 @@ class FeignErrorHandler(
     fun handleFeignException(exception: FeignException): ResponseEntity<Any> {
         return try {
             val apiException = mapper.readValue(exception.contentUTF8(), ApiException::class.java)
-            val body = convert(apiException, exception, debug, debugPackages)
+            val body = convert(apiException, exception, debugProperties.debug.enabled, debugProperties.debug.packages)
             responseWith(body, apiException.statusCode)
         } catch (e: FeignClientException) {
             val body = exception.contentUTF8() ?: mapOf("message" to (exception.message ?: exception.localizedMessage))

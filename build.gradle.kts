@@ -6,6 +6,7 @@ plugins {
     id("org.jmailen.kotlinter") version "4.1.0"
     id("maven-publish")
     id("java-library")
+    id("jacoco")
     kotlin("jvm") version "1.9.21"
     kotlin("plugin.spring") version "1.9.21"
 }
@@ -21,9 +22,9 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
 
-    compileOnly("org.springframework.cloud:spring-cloud-starter-openfeign")
-    compileOnly("org.springframework.boot:spring-boot-starter-web")
-    compileOnly("org.springframework:spring-webflux")
+    api("org.springframework.cloud:spring-cloud-starter-openfeign")
+    api("org.springframework.boot:spring-boot-starter-web")
+    api("org.springframework:spring-webflux")
     compileOnly("org.springframework.boot:spring-boot-starter-validation")
 
     implementation("jakarta.annotation:jakarta.annotation-api:2.1.1")
@@ -31,6 +32,10 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.cloud:spring-cloud-contract-wiremock")
+
 }
 
 tasks.withType<KotlinCompile> {
@@ -70,6 +75,22 @@ publishing {
     publications {
         create<MavenPublication>("artifact") {
             from(components["java"])
+        }
+    }
+
+}
+
+tasks.test {
+    finalizedBy(tasks.jacocoTestCoverageVerification)
+}
+
+tasks.jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                counter = "LINE"
+                minimum = "0.30".toBigDecimal()
+            }
         }
     }
 }
