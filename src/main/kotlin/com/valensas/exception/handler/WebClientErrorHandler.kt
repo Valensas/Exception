@@ -27,7 +27,6 @@ class WebClientErrorHandler(
 
             responseWith(body, statusCode)
         } catch (e: Throwable) {
-            // Try to return exception as ResponseEntity with keeping data
             val body = exception.responseBodyAsString.ifEmpty { mapOf("message" to (exception.message ?: exception.localizedMessage)) }
             responseWith(body, statusCode)
         }

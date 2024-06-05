@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "com.valensas"
-version = "2.3.0"
+version = "2.4.0"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
@@ -22,9 +22,9 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
 
-    api("org.springframework.cloud:spring-cloud-starter-openfeign")
-    api("org.springframework.boot:spring-boot-starter-web")
-    api("org.springframework:spring-webflux")
+    compileOnly("org.springframework.cloud:spring-cloud-starter-openfeign")
+    compileOnly("org.springframework.boot:spring-boot-starter-web")
+    compileOnly("org.springframework:spring-webflux")
     compileOnly("org.springframework.boot:spring-boot-starter-validation")
 
     implementation("jakarta.annotation:jakarta.annotation-api:2.1.1")
@@ -35,7 +35,9 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.cloud:spring-cloud-contract-wiremock")
-
+    testImplementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+    testImplementation("org.springframework.boot:spring-boot-starter-web")
+    testImplementation("org.springframework:spring-webflux")
 }
 
 tasks.withType<KotlinCompile> {
