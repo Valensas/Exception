@@ -78,11 +78,11 @@ signing {
 }
 
 centralPortal {
-    name = "observability"
+    name = "exception"
     username = System.getenv("SONATYPE_USERNAME")
     password = System.getenv("SONATYPE_PASSWORD")
     pom {
-        name = "Observability"
+        name = "Exception"
         description = "A simple library to manage exceptions for Spring Boot."
         url = "https://valensas.com/"
         scm {

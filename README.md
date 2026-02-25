@@ -1,6 +1,4 @@
-[![N|Solid](https://valensas.com/img/logo.png)](https://nodesource.com/products/nsolid)
-
-# Exchange Security Library
+# Exception Library
 
 It is the library that contains common exception configurations.
 
