@@ -60,7 +60,7 @@ dependencyManagement {
 publishing {
     publications {
         create("library", MavenPublication::class.java) {
-            artifactId = "observability"
+            artifactId = "exception"
             from(components["java"])
         }
     }
