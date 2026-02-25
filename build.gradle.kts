@@ -1,7 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.2.0"
     id("io.spring.dependency-management") version "1.1.4"
     id("org.jmailen.kotlinter") version "4.1.0"
     id("maven-publish")
@@ -53,6 +52,7 @@ tasks.withType<Test> {
 
 dependencyManagement {
     imports {
+        mavenBom("org.springframework.boot:spring-boot-dependencies:3.2.0")
         mavenBom("org.springframework.cloud:spring-cloud-dependencies:2023.0.0")
     }
 }
