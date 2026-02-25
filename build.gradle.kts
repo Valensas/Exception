@@ -12,7 +12,6 @@ plugins {
 }
 
 group = "com.valensas"
-version = "2.4.0"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
@@ -58,28 +57,52 @@ dependencyManagement {
 }
 
 publishing {
-    repositories {
-        if (System.getenv("CI_API_V4_URL") != null) {
-            maven {
-                name = "Gitlab"
-                url = uri("${System.getenv("CI_API_V4_URL")}/projects/${System.getenv("CI_PROJECT_ID")}/packages/maven")
-                credentials(HttpHeaderCredentials::class.java) {
-                    name = "Job-Token"
-                    value = System.getenv("CI_JOB_TOKEN")
-                }
-                authentication {
-                    create("header", HttpHeaderAuthentication::class)
-                }
-            }
-        }
-    }
-
     publications {
-        create<MavenPublication>("artifact") {
+        create("library", MavenPublication::class.java) {
+            artifactId = "observability"
             from(components["java"])
         }
     }
+    repositories {
+        mavenLocal()
+    }
+}
 
+signing {
+    val keyId = System.getenv("SIGNING_KEYID")
+    val secretKey = System.getenv("SIGNING_SECRETKEY")
+    val passphrase = System.getenv("SIGNING_PASSPHRASE")
+
+    useInMemoryPgpKeys(keyId, secretKey, passphrase)
+}
+
+centralPortal {
+    name = "observability"
+    username = System.getenv("SONATYPE_USERNAME")
+    password = System.getenv("SONATYPE_PASSWORD")
+    pom {
+        name = "Observability"
+        description = "A simple library to manage exceptions for Spring Boot."
+        url = "https://valensas.com/"
+        scm {
+            url = "https://github.com/Valensas/exception"
+        }
+
+        licenses {
+            license {
+                name.set("MIT License")
+                url.set("https://mit-license.org")
+            }
+        }
+
+        developers {
+            developer {
+                id.set("0")
+                name.set("Valensas")
+                email.set("info@valensas.com")
+            }
+        }
+    }
 }
 
 tasks.test {
