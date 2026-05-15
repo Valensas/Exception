@@ -74,7 +74,7 @@ class WebFluxParameterExceptionErrorHandler(
                         val mismatchedInputException = decodingException.cause as MismatchedInputException
                         parameter =
                             mismatchedInputException.path.joinToString(".") {
-                                it.fieldName
+                                it.fieldName ?: "[${it.index}]"
                             }
                         message = mismatchedInputException.originalMessage
                     }
