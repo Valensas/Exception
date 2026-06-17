@@ -20,14 +20,13 @@ abstract class HttpErrorHandler(
     fun responseWith(
         body: Any?,
         statusCode: HttpStatus
-    ): ResponseEntity<Any> {
-        return ResponseEntity(body, defaultHeaders, statusCode).also {
+    ): ResponseEntity<Any> =
+        ResponseEntity(body, defaultHeaders, statusCode).also {
             when {
                 it.statusCode.value() in 400..500 && log4xx -> logger.error("Returning {}, body: {}", it.statusCode.value(), it.body)
                 it.statusCode.value() in 500..600 && log5xx -> logger.error("Returning {}, body: {}", it.statusCode.value(), it.body)
             }
         }
-    }
 
     private fun <K, V> Map<K, V?>.filterNotNullValues(): Map<K, V> =
         mutableMapOf<K, V>().apply { for ((k, v) in this@filterNotNullValues) if (v != null) put(k, v) }

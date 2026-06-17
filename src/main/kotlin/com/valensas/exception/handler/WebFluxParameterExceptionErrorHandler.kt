@@ -67,6 +67,7 @@ class WebFluxParameterExceptionErrorHandler(
                 parameter = typeMismatchException.propertyName
                 message = typeMismatchException.localizedMessage
             }
+
             is DecodingException -> {
                 val decodingException = exception.cause as DecodingException
                 when (decodingException.cause) {
@@ -127,7 +128,11 @@ class WebFluxParameterExceptionErrorHandler(
                     exception.valueResults.map {
                         FieldError(
                             field = it.methodParameter.parameter.name,
-                            message = it.resolvableErrors.first().defaultMessage.toString()
+                            message =
+                                it.resolvableErrors
+                                    .first()
+                                    .defaultMessage
+                                    .toString()
                         )
                     }
             )
