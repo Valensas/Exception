@@ -19,75 +19,93 @@ class WebParameterExceptionErrorHandlerTest {
 
     @Test
     fun `Try to send get request with missing header and check response message`() {
-        webClient.get()
+        webClient
+            .get()
             .uri("/web/${UUID.randomUUID()}")
             .exchange()
-            .expectStatus().isEqualTo(HttpStatus.BAD_REQUEST)
+            .expectStatus()
+            .isEqualTo(HttpStatus.BAD_REQUEST)
             .expectBody()
-            .jsonPath("$.message").isEqualTo("Required request header 'headerNumber' for method parameter type long is not present")
+            .jsonPath("$.message")
+            .isEqualTo("Required request header 'headerNumber' for method parameter type long is not present")
             .returnResult()
     }
 
     @Test
     fun `Try to send get request with wrong format header and check response message`() {
-        webClient.get()
+        webClient
+            .get()
             .uri("/web/${UUID.randomUUID()}")
             .header("headerNumber", "invalid_value")
             .exchange()
-            .expectStatus().is4xxClientError
+            .expectStatus()
+            .is4xxClientError
             .expectBody()
             .jsonPath(
                 "$.message"
             ).isEqualTo(
-                "Failed to convert value of type 'java.lang.String' to required type 'long'; For input string: \"invalid_value\""
-            )
-            .returnResult()
+                "Method parameter 'headerNumber': Failed to convert value of type 'java.lang.String' to required type 'long'; " +
+                    "For input string: \"invalid_value\""
+            ).returnResult()
     }
 
     @Test
     fun `Try to send get request with missing request param and check response message`() {
-        webClient.get()
+        webClient
+            .get()
             .uri("/web")
             .exchange()
-            .expectStatus().is4xxClientError
+            .expectStatus()
+            .is4xxClientError
             .expectBody()
-            .jsonPath("$.message").isEqualTo("Required request parameter 'param' for method parameter type UUID is not present")
+            .jsonPath("$.message")
+            .isEqualTo("Required request parameter 'param' for method parameter type UUID is not present")
     }
 
     @Test
     fun `Try to send get request with wrong format request param and check response message`() {
-        webClient.get()
+        webClient
+            .get()
             .uri("/web?param=12")
             .exchange()
-            .expectStatus().is4xxClientError
-            .expectBody()
-            .jsonPath(
-                "$.message"
-            ).isEqualTo("Failed to convert value of type 'java.lang.String' to required type 'java.util.UUID'; Invalid UUID string: 12")
-    }
-
-    @Test
-    fun `Try to send get request with wrong format path variable and check response message`() {
-        webClient.get()
-            .uri("/web/12345")
-            .header("headerNumber", "12")
-            .exchange()
-            .expectStatus().is4xxClientError
+            .expectStatus()
+            .is4xxClientError
             .expectBody()
             .jsonPath(
                 "$.message"
             ).isEqualTo(
-                "Failed to convert value of type 'java.lang.String' to required type 'java.util.UUID'; Invalid UUID string: 12345"
+                "Method parameter 'param': Failed to convert value of type 'java.lang.String' to required type 'java.util.UUID'; " +
+                    "Invalid UUID string: 12"
+            )
+    }
+
+    @Test
+    fun `Try to send get request with wrong format path variable and check response message`() {
+        webClient
+            .get()
+            .uri("/web/12345")
+            .header("headerNumber", "12")
+            .exchange()
+            .expectStatus()
+            .is4xxClientError
+            .expectBody()
+            .jsonPath(
+                "$.message"
+            ).isEqualTo(
+                "Method parameter 'pathVariable': Failed to convert value of type 'java.lang.String' to required type 'java.util.UUID'; " +
+                    "Invalid UUID string: 12345"
             )
     }
 
     @Test
     fun `Try to send post request with wrong format body variable and check response message`() {
-        webClient.post()
+        webClient
+            .post()
             .uri("/web")
             .bodyValue(WrongFormatParameterModel(12, 13))
             .exchange()
-            .expectStatus().is4xxClientError
+            .expectStatus()
+            .is4xxClientError
             .expectBody()
             .jsonPath(
                 "$.message"
@@ -99,11 +117,13 @@ class WebParameterExceptionErrorHandlerTest {
 
     @Test
     fun `Try to send post request with missing body variable and check response message`() {
-        webClient.post()
+        webClient
+            .post()
             .uri("/web")
             .bodyValue(MissingParameterModel(12))
             .exchange()
-            .expectStatus().is4xxClientError
+            .expectStatus()
+            .is4xxClientError
             .expectBody()
             .jsonPath(
                 "$.message"

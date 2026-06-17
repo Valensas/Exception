@@ -24,8 +24,8 @@ class FeignErrorHandler(
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @ExceptionHandler(FeignException::class)
-    fun handleFeignException(exception: FeignException): ResponseEntity<Any> {
-        return try {
+    fun handleFeignException(exception: FeignException): ResponseEntity<Any> =
+        try {
             val apiException = mapper.readValue(exception.contentUTF8(), ApiException::class.java)
             val body = convert(apiException, exception, debugProperties.debug.enabled, debugProperties.debug.packages)
             responseWith(body, apiException.statusCode)
@@ -39,5 +39,4 @@ class FeignErrorHandler(
             logger.warn("Unhandled FeignException occurred. Response body: {}.", exception.contentUTF8(), e)
             responseWith(mapOf("message" to "An error occured."), HttpStatus.INTERNAL_SERVER_ERROR)
         }
-    }
 }

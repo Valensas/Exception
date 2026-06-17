@@ -29,12 +29,11 @@ class ApiExceptionHandlerAutoConfiguration {
     fun apiExceptionErrorHandler(
         mapper: ObjectMapper,
         debugProperties: ExceptionHandlerConfigurationProperties
-    ): ApiExceptionErrorHandler {
-        return ApiExceptionErrorHandler(
+    ): ApiExceptionErrorHandler =
+        ApiExceptionErrorHandler(
             mapper = mapper,
             debugProperties = debugProperties
         )
-    }
 }
 
 @Configuration
@@ -48,12 +47,11 @@ class WebFluxParameterExceptionHandlerAutoConfiguration {
     fun webFluxParameterExceptionErrorHandler(
         mapper: ObjectMapper,
         debugProperties: ExceptionHandlerConfigurationProperties
-    ): WebFluxParameterExceptionErrorHandler {
-        return WebFluxParameterExceptionErrorHandler(
+    ): WebFluxParameterExceptionErrorHandler =
+        WebFluxParameterExceptionErrorHandler(
             mapper = mapper,
             debugProperties = debugProperties
         )
-    }
 }
 
 @Configuration
@@ -67,12 +65,11 @@ class WebParameterExceptionErrorHandlerConfiguration {
     fun webParameterExceptionErrorHandler(
         mapper: ObjectMapper,
         debugProperties: ExceptionHandlerConfigurationProperties
-    ): WebParameterExceptionErrorHandler {
-        return WebParameterExceptionErrorHandler(
+    ): WebParameterExceptionErrorHandler =
+        WebParameterExceptionErrorHandler(
             mapper,
             debugProperties
         )
-    }
 }
 
 @Configuration
@@ -83,12 +80,11 @@ class FeignErrorHandlerAutoConfiguration {
     fun feignErrorHandler(
         mapper: ObjectMapper,
         debugProperties: ExceptionHandlerConfigurationProperties
-    ): FeignErrorHandler {
-        return FeignErrorHandler(
+    ): FeignErrorHandler =
+        FeignErrorHandler(
             mapper = mapper,
             debugProperties = debugProperties
         )
-    }
 }
 
 @Configuration
@@ -99,12 +95,11 @@ class WebClientErrorHandlerAutoConfiguration {
     fun webClientErrorHandler(
         mapper: ObjectMapper,
         debugProperties: ExceptionHandlerConfigurationProperties
-    ): WebClientErrorHandler {
-        return WebClientErrorHandler(
+    ): WebClientErrorHandler =
+        WebClientErrorHandler(
             mapper = mapper,
             debugProperties = debugProperties
         )
-    }
 }
 
 @Configuration
@@ -115,10 +110,9 @@ class RestTemplateErrorHandlerAutoConfiguration {
     fun restTemplateErrorHandler(
         mapper: ObjectMapper,
         debugProperties: ExceptionHandlerConfigurationProperties
-    ): RestTemplateErrorHandler {
-        return RestTemplateErrorHandler(
+    ): RestTemplateErrorHandler =
+        RestTemplateErrorHandler(
             mapper = mapper,
             debugProperties = debugProperties
         )
-    }
 }
