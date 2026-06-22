@@ -1,6 +1,5 @@
 package com.valensas.exception.handler
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.valensas.exception.ApiException
 import com.valensas.exception.ParameterException
 import org.slf4j.LoggerFactory
@@ -8,6 +7,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
+import tools.jackson.databind.ObjectMapper
 
 abstract class HttpErrorHandler(
     protected val mapper: ObjectMapper,

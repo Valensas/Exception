@@ -49,13 +49,6 @@ open class Processing(
     data: HashMap<*, *>? = null
 ) : ApiException(message, code, data)
 
-@ResponseStatus(HttpStatus.CHECKPOINT)
-open class CheckPoint(
-    message: String,
-    code: String = "CHECKPOINT",
-    data: HashMap<*, *>? = null
-) : ApiException(message, code, data)
-
 @ResponseStatus(HttpStatus.OK)
 open class Ok(
     message: String,

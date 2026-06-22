@@ -1,6 +1,5 @@
 package com.valensas.exception.autoconfigure
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.valensas.exception.ApiException
 import com.valensas.exception.ParameterException
 import com.valensas.exception.handler.ApiExceptionErrorHandler
@@ -18,6 +17,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.reactive.function.client.WebClient
+import tools.jackson.databind.ObjectMapper
 
 @Configuration
 @RegisterReflectionForBinding(
