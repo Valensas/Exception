@@ -28,12 +28,13 @@ dependencies {
     compileOnly("org.springframework.boot:spring-boot-starter-validation")
 
     implementation("jakarta.annotation:jakarta.annotation-api")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("tools.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-webtestclient")
     testImplementation("org.springframework.cloud:spring-cloud-contract-wiremock")
     testImplementation("org.springframework.cloud:spring-cloud-starter-openfeign")
     testImplementation("org.springframework.boot:spring-boot-starter-web")
@@ -56,8 +57,8 @@ extra["kotlin.version"] = "2.4.0"
 
 dependencyManagement {
     imports {
-        mavenBom("org.springframework.boot:spring-boot-dependencies:3.5.15")
-        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2025.0.3")
+        mavenBom("org.springframework.boot:spring-boot-dependencies:4.1.0")
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2025.1.2")
     }
 }
 

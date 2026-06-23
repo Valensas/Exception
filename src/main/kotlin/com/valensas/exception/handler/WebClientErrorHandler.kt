@@ -1,6 +1,5 @@
 package com.valensas.exception.handler
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.valensas.exception.ApiException
 import com.valensas.exception.autoconfigure.ExceptionHandlerConfigurationProperties
 import org.springframework.http.HttpStatus
@@ -8,6 +7,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.reactive.function.client.WebClientResponseException
+import tools.jackson.databind.ObjectMapper
 
 @RestControllerAdvice
 class WebClientErrorHandler(

@@ -1,7 +1,5 @@
 package com.valensas.exception.handler
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.exc.MismatchedInputException
 import com.valensas.exception.FieldError
 import com.valensas.exception.ParameterErrorCode
 import com.valensas.exception.ParameterException
@@ -17,6 +15,8 @@ import org.springframework.web.bind.support.WebExchangeBindException
 import org.springframework.web.method.annotation.HandlerMethodValidationException
 import org.springframework.web.server.MissingRequestValueException
 import org.springframework.web.server.ServerWebInputException
+import tools.jackson.databind.ObjectMapper
+import tools.jackson.databind.exc.MismatchedInputException
 
 @RestControllerAdvice
 class WebFluxParameterExceptionErrorHandler(
@@ -75,7 +75,7 @@ class WebFluxParameterExceptionErrorHandler(
                         val mismatchedInputException = decodingException.cause as MismatchedInputException
                         parameter =
                             mismatchedInputException.path.joinToString(".") {
-                                it.fieldName ?: "[${it.index}]"
+                                it.propertyName ?: "[${it.index}]"
                             }
                         message = mismatchedInputException.originalMessage
                     }

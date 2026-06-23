@@ -1,6 +1,5 @@
 package com.valensas.exception.handler
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.valensas.exception.FieldError
 import com.valensas.exception.ParameterErrorCode
 import com.valensas.exception.ParameterException
@@ -15,6 +14,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
+import tools.jackson.databind.ObjectMapper
 
 @RestControllerAdvice
 class WebParameterExceptionErrorHandler(
